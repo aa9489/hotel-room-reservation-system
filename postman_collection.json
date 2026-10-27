@@ -1,0 +1,22 @@
+{
+  "info": {
+    "name": "Hotel Room Reservation System",
+    "description": "REST API examples for the academic reservation app. Update baseUrl, roomId, and bookingReference after creating a booking.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "roomId", "value": "1" },
+    { "key": "bookingReference", "value": "HR-REPLACE-ME" }
+  ],
+  "item": [
+    { "name": "List rooms", "request": { "method": "GET", "url": "{{baseUrl}}/api/rooms" } },
+    { "name": "Search available rooms", "request": { "method": "GET", "url": "{{baseUrl}}/api/rooms/available?checkIn=2026-12-01&checkOut=2026-12-04&guests=2" } },
+    { "name": "Register customer", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"fullName\": \"Avery Guest\",\n  \"email\": \"avery@example.com\",\n  \"phoneNumber\": \"555-0100\"\n}" }, "url": "{{baseUrl}}/api/customers" } },
+    { "name": "Create booking", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"roomId\": {{roomId}},\n  \"fullName\": \"Avery Guest\",\n  \"email\": \"avery@example.com\",\n  \"phoneNumber\": \"555-0100\",\n  \"checkInDate\": \"2026-12-01\",\n  \"checkOutDate\": \"2026-12-04\",\n  \"numberOfGuests\": 2\n}" }, "url": "{{baseUrl}}/api/bookings" } },
+    { "name": "Get booking", "request": { "method": "GET", "url": "{{baseUrl}}/api/bookings/{{bookingReference}}" } },
+    { "name": "Cancel booking", "request": { "method": "PATCH", "url": "{{baseUrl}}/api/bookings/{{bookingReference}}/cancel" } },
+    { "name": "Mark booking completed", "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"status\": \"COMPLETED\"\n}" }, "url": "{{baseUrl}}/api/bookings/{{bookingReference}}/status" } },
+    { "name": "Booking history", "request": { "method": "GET", "url": "{{baseUrl}}/api/bookings" } }
+  ]
+}
